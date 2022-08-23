@@ -77,6 +77,7 @@ main {
     margin-bottom: 2rem;
     height: 364px;
     width: 380px;
+    position: relative;
     
 }
 
@@ -143,23 +144,42 @@ i{
    font-size: 12px;
    height: 14px;
    
-}
+   
 
-.item-list{
-    height: 171px;
-    width: 200px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 245px;
-    margin-left: 10px;
-    line-height: 14,4px;
    
 }
-#item-quantity{
+.item-list {
+    
+    
+    position: absolute;
+    bottom: 45px;
+    left: 10px;
+    
+    
+}
+
+
+
+.item-quantity{
     font-family: 'Lato';
    font-weight: 400;
    font-size: 12px;
-   height: 14px;
-   margin-left: 110px;
+   display: inline;
+}
+
+.recipes-border {
+    margin-top: 100px;
+}
+.fa-solid{
+    position: absolute;
+    left: 77.5%;
+    top: 30%;
+
+    z-index: 10000;
+    color: white;
+}
+.dropdown-toggle::after{
+    border-right: 0;
+    border-top: 0;
+    
 }

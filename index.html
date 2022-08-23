@@ -33,7 +33,7 @@
         <div class="container-fluid search-bar">
             <div class="form-group has-search col">
                 <input type="text" class="form-control mx-auto" placeholder="Rechercher une recette">
-                <span class="fa fa-search form-control-feedback"></span>
+                <span class="fa fa-search form-control-feedback" ></span>
             </div>
         </div>
         <div class="container sort-field">
@@ -41,11 +41,11 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2">
-                    <select class="selectpicker ingredients-select " data-live-search="true" title="Ingredients" data-width="170px" data-size="69" data-style="btn-primary text-white">
+                <div class="col-2" id="ingredients-select">
+                    <select class="selectpicker ingredients-select"data-live-search="true" title="Ingredients" data-width="170px" data-size="69" data-style="btn-primary text-white">
                         
                       </select>
-                      <span><i class="fa-solid fa-chevron-down"></i></span>
+                      <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
 
                       
                 </div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         
-        <div class="container-fluid">
+        <div class="container-fluid recipes-border">
             <div class="row justify-content-around" id="recipes-field">
             
             </div>

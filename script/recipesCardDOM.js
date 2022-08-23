@@ -12,7 +12,7 @@
             const span = document.createElement('span');
             const paragraphe = document.createElement('p')
             const listItems = document.createElement('div');
-            
+            const quantityBloc = document.createElement('div')
       
         const {name, id, description, time, appliance,ingredients} = data
         
@@ -23,7 +23,7 @@
         
         const recipesField = document.getElementById('recipes-field');
             
-            article.classList.add('col-4');
+            article.classList.add('col-md-4');
             icone.classList.add('fa-clock');
 
             icone.classList.add('fa-regular');
@@ -32,7 +32,12 @@
             paragrapheDiv.setAttribute('id','paragraphe-bloc');
             span.classList.add('text-right');
             title.classList.add('card-title');
+            
             listItems.classList.add('item-list')
+            
+            
+            
+
             img.classList.add('card-img-top');
             img.setAttribute('src','...');
             img.style.background = "#C7BEBE"
@@ -54,6 +59,7 @@
             card.appendChild(span)
             card.appendChild(paragrapheDiv)
             card.appendChild(listItems)
+            card.appendChild(quantityBloc)
             span.appendChild(icone)
             paragrapheDiv.appendChild(paragraphe)
             
@@ -62,32 +68,46 @@
             article.appendChild(card)
             ingredients.map(function(dosage){
                 const {ingredient,quantity,unit} = dosage
-                console.log(ingredients)
+              
                 const recipesField = document.getElementById('recipes-field');
                 
                 
-                const howToDo = document.createElement('span');
-                const quantitySpan = document.createElement('span');
+                const howToDo = document.createElement('div');
+                const quantitySpan= document.createElement('div')
+                quantitySpan.classList.add('item-quantity')
+                
+                quantityBloc.classList.add('bloc-quantity')
+                
                 
                 listItems.appendChild(howToDo)
+                quantityBloc.appendChild(quantitySpan)
                 
                 howToDo.setAttribute('id','item')
-                howToDo.innerHTML = `${ingredient}: ${quantity}${unit}`
-                howToDo.style.fontWeight = '400'
-                if(typeof unit === 'undefined' && typeof quantity === 'undefined' ) {
-                    howToDo.innerHTML = `${ingredient}`
-                } else if(typeof unit ==='undefined'){
-                    howToDo.innerHTML = `${ingredient}:${quantity}`
-                }else if(typeof quantity ==='undefined'){
-                    howToDo.innerHTML = `${ingredient}:${unit}`
-                }
+                howToDo.classList.add('d-inline-block-column')
                 
+                quantitySpan.classList.add('col-6')
+                
+                
+                howToDo.innerHTML = `${ingredient}:&nbsp; ${quantity}&nbsp;${unit}`
+                
+                if( quantity === "undefined"){
+                    howToDo.innerHTML = "aurevoir"
+                }else if(typeof unit === "undefined"){
+                    howToDo.innerHTML = `${ingredient}:&nbsp;${quantity}`
+                }
+                if(typeof quantity ==='undefined' && typeof unit ==='undefined'){
+                    howToDo.innerHTML = `${ingredient}`;
+                }
             })
             
-            
+            const ingredientsInput = document.querySelectorAll('ul')
+            ingredientsInput.innerHTML = "bonjour"
            
 
             
         
             
     });
+
+
+    
