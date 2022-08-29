@@ -41,10 +41,12 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2" id="ingredients-select">
-                    <select class="selectpicker ingredients-select"data-live-search="true" title="Ingredients" data-width="170px" data-size="69" data-style="btn-primary text-white">
-                        
-                      </select>
+                <div class="col-2">
+                    <input list="ingredients" placeholder="Ingredients"name="ingredients" id="ingredients-select">
+                    <datalist id="ingredients" aria-label="listbox">
+                    
+                    </datalist>
+
                       <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
 
                       
@@ -53,11 +55,15 @@
                     <select class="selectpicker appareils-select" class="btn-light disabled"  data-live-search="true" title="Appareils" data-width="170px" data-style="btn-success text-white">
                         
                     </select>
+                    <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+
                 </div>
                 <div class="col-2">
                     <select class="selectpicker ustensiles-select" data-live-search="true" title="Ustensiles" data-width="170px" data-style="btn-danger text-white">
                         
                     </select>
+                    <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+
                 </div>
             </div>
         </div>

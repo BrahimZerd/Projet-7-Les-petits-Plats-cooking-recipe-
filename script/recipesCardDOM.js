@@ -12,20 +12,13 @@
             const span = document.createElement('span');
             const paragraphe = document.createElement('p')
             const listItems = document.createElement('div');
-            const quantityBloc = document.createElement('div')
+            const quantityBloc = document.createElement('div');
+            const recipesField = document.getElementById('recipes-field');
       
         const {name, id, description, time, appliance,ingredients} = data
-        
-       
-        
-        
-        
-        
-        const recipesField = document.getElementById('recipes-field');
-            
+
             article.classList.add('col-md-4');
             icone.classList.add('fa-clock');
-
             icone.classList.add('fa-regular');
             card.classList.add('card');
             paragrapheDiv.classList.add('paragraphe-bloc');
@@ -66,11 +59,20 @@
             
             recipesField.appendChild(article)
             article.appendChild(card)
+
+            //intégrations des ingrédients séparés du tableau
             ingredients.map(function(dosage){
-                const {ingredient,quantity,unit} = dosage
+                const {ingredient,quantity,unit,ustensils} = dosage
               
                 const recipesField = document.getElementById('recipes-field');
                 
+                const option = document.createElement('option');
+                const ingredientsInput = document.getElementById('ingredients')
+                option.setAttribute('value',`${ingredient}`);
+                ingredientsInput.appendChild(option);
+                
+    
+
                 
                 const howToDo = document.createElement('div');
                 const quantitySpan= document.createElement('div')
@@ -88,26 +90,23 @@
                 quantitySpan.classList.add('col-6')
                 
                 
-                howToDo.innerHTML = `${ingredient}:&nbsp; ${quantity}&nbsp;${unit}`
+                howToDo.innerHTML = `<strong>${ingredient}</strong>:&nbsp; ${quantity}&nbsp;${unit}`
                 
                 if( quantity === "undefined"){
                     howToDo.innerHTML = "aurevoir"
                 }else if(typeof unit === "undefined"){
-                    howToDo.innerHTML = `${ingredient}:&nbsp;${quantity}`
+                    howToDo.innerHTML = `<strong>${ingredient}</strong>:&nbsp;${quantity}`
                 }
                 if(typeof quantity ==='undefined' && typeof unit ==='undefined'){
-                    howToDo.innerHTML = `${ingredient}`;
+                    howToDo.innerHTML = `<strong>${ingredient}</strong>`;
                 }
             })
             
-            const ingredientsInput = document.querySelectorAll('ul')
-            ingredientsInput.innerHTML = "bonjour"
-           
-
-            
-        
-            
     });
 
+
+
+    
+    
 
     
