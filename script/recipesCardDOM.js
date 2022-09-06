@@ -1,7 +1,7 @@
 //intégration des cards du dom
 
-   
-    const namesArray = recipes.map(function(data) { 
+function createCard(recipes) {
+    const namesArray = recipes.forEach(function(data) { 
             const icone = document.createElement('i');
             const article = document.createElement('div');
             const card = document.createElement('div');
@@ -61,15 +61,20 @@
             article.appendChild(card)
 
             //intégrations des ingrédients séparés du tableau
+            
             ingredients.map(function(dosage){
                 const {ingredient,quantity,unit,ustensils} = dosage
               
                 const recipesField = document.getElementById('recipes-field');
                 
-                const option = document.createElement('option');
-                const ingredientsInput = document.getElementById('ingredients')
-                option.setAttribute('value',`${ingredient}`);
-                ingredientsInput.appendChild(option);
+                
+                    
+                
+                
+            
+
+                
+                
                 
     
 
@@ -103,10 +108,13 @@
             })
             
     });
-
-
-
     
+    }
+
+    createCard(recipes);
+
+
+
     
 
     

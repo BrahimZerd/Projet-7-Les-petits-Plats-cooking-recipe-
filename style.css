@@ -43,18 +43,6 @@ main {
     cursor: pointer;
 }
 
-.btn-success{
-    background-color: #68D9A4;
-    border: #68D9A4;
-
-}
-
-.btn-danger{
-    background-color: #ED6454;
-    color: #ED6454;
-    border: #ED6454;
-}
-
 .btn{
   height: 69px;
   line-height: 50px;
@@ -160,6 +148,11 @@ i{
     cursor: pointer;
     color: white;
 }
+
+.rotate{
+    transform :rotate(180deg);
+    transition: 0.4s;
+}
 .dropdown-toggle::after{
     border-right: 0;
     border-top: 0;
@@ -173,9 +166,34 @@ i{
     height: 69px;
     width: 170px;
     border-radius: 5px;
-    padding-left: 15% ;
+    padding-left: 10% ;
     cursor: pointer;
     
+}
+
+#appareils-select {
+    background-color: #68D9A4;
+    border: #68D9A4;
+    color:white;
+    font-family: 'Lato';
+    height: 69px;
+    width: 170px;
+    border-radius: 5px;
+    padding-left: 10% ;
+    cursor: pointer;
+
+}
+
+#ustensiles-select {
+    color:white;
+    font-family: 'Lato';
+    height: 69px;
+    width: 170px;
+    border-radius: 5px;
+    padding-left: 10% ;
+    cursor: pointer;
+    background-color: #ED6454;
+    border: #ED6454;
 }
 
 ::placeholder {
@@ -205,4 +223,63 @@ datalist {
   }
   option:hover, .active{
     background-color: lightblue;
+  }
+
+  input span {
+    font-size: 200px;
+  }
+
+  li {
+    list-style-type: none;
+    color: white;
+    }
+    li:hover {
+        cursor: pointer;
+    }
+  .dropdown-menu {
+    background-color: #3282F7;
+    
+    width: 100%;
+    margin-top: 170%;
+    margin-left: 0%;
+    border: none;
+    border-radius: 5px;
+    
+  }
+
+  a {
+    color: white;
+  }
+
+  
+  .appareils-dropdown {
+    
+    background-color: #68D9A4;    
+    width: 100%;
+    margin-top: -4px;
+    margin-left: 0%;
+    border:  #68D9A4;  
+    border-radius: 0px;
+  }
+  .ustensiles-dropdown {
+    background-color: #ED6454;    
+    width: 100%;
+    margin-top: -4px;
+    margin-left: 0%;
+    border:  #68D9A4;  
+    border-radius: 0px;
+  }
+  #appareils-select {
+    border: #68D9A4;
+  }
+
+  .bluetag {
+    background-color: #3282F7;
+    color: white;
+    width: 10%;
+    border-radius: 5px;
+    margin: 3px;
+    
+    
+   
   }

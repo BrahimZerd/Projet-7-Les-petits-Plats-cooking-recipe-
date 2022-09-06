@@ -14,8 +14,9 @@
 <link rel="stylesheet" href="style.css">
 
 <script src="./script/recipes.js" defer></script>
-<script src="./script/index.js" defer></script>
 <script src="./script/recipesCardDOM.js" defer></script>
+<script src="./script/index.js" defer></script>
+<script src="./script/filters.js" defer></script>
 
 <title>Les petits plats</title>
 
@@ -31,8 +32,8 @@
     </header>
     <main>
         <div class="container-fluid search-bar">
-            <div class="form-group has-search col">
-                <input type="text" class="form-control mx-auto" placeholder="Rechercher une recette">
+            <div class="form-group has-search col" id = "inputSelector">
+                <input type="text"  class="form-control mx-auto" placeholder="Rechercher une recette">
                 <span class="fa fa-search form-control-feedback" ></span>
             </div>
         </div>
@@ -41,30 +42,38 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2">
-                    <input list="ingredients" placeholder="Ingredients"name="ingredients" id="ingredients-select">
-                    <datalist id="ingredients" aria-label="listbox">
-                    
-                    </datalist>
-
-                      <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
-
-                      
-                </div>
-                <div class="col-2">
-                    <select class="selectpicker appareils-select" class="btn-light disabled"  data-live-search="true" title="Appareils" data-width="170px" data-style="btn-success text-white">
-                        
-                    </select>
+                <div class ="col-2">
+                <li class="dropdown">
+                    <input aria-expanded="false" placeholder="Ingredients" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"id="ingredients-select" href="#"></input>
                     <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
-
+                      <ul class="dropdown-menu" id="ingredients-dropdown">
+                      </ul>
+                    </li>
                 </div>
-                <div class="col-2">
-                    <select class="selectpicker ustensiles-select" data-live-search="true" title="Ustensiles" data-width="170px" data-style="btn-danger text-white">
-                        
-                    </select>
-                    <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
-
+                <div class ="col-2">
+                    <li class="dropdown">
+                        <input aria-expanded="false" placeholder="Appareils" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"id="appareils-select" href="#"></input>
+                        <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+                          <ul class="dropdown-menu appareils-dropdown">
+                            <li><a href="#">Option 1</a></li>
+                            <li><a href="#">Option 2</a></li>
+                            <li><a href="#">Option 3</a></li>
+                            <li><a href="#">Option 4</a></li>
+                          </ul>
+                        </li>
                 </div>
+                <div class ="col-2">
+                    <li class="dropdown">
+                        <input aria-expanded="false" placeholder="Ustensiles" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"id="ustensiles-select" href="#"></input>
+                        <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+                          <ul class="dropdown-menu ustensiles-dropdown">
+                            <li><a href="#">Option 1</a></li>
+                            <li><a href="#">Option 2</a></li>
+                            <li><a href="#">Option 3</a></li>
+                            <li><a href="#">Option 4</a></li>
+                          </ul>
+                        </li>
+                </div>    
             </div>
         </div>
         
