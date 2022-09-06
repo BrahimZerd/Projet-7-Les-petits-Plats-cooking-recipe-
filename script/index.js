@@ -5,6 +5,7 @@ const recipesJSON = Object.assign({}, recipes)
 const recipesField = document.getElementById('recipes-field')
 const MissingText = document.createElement('span');
 const InputDiv = document.getElementById('inputSelector')
+
 InputDiv.parentNode.appendChild(MissingText)
 
        
@@ -70,6 +71,11 @@ function filterData(e) {
             li.classList.toggle('bluetag')
             MissingText.innerhTML = e.target.innerHTML;
         })
+    })
+
+    const ingredients = document.getElementById('ingredients-select')
+    ingredients.addEventListener('click',function(){
+        ingredients.style.width ="100%"
     })
 
     
