@@ -76,9 +76,19 @@ function filterData(e) {
         li.addEventListener('click',function(e){
             console.log(e.target.innerHTML)
             const SearchBar = document.querySelector('search-bar');
-
+            const closeIcon = document.createElement('i');
+            ingredients.classList.toggle('toggle-input')
+            ingredientsDiv.classList.toggle('col-5');
+            arrowIngredients.classList.toggle('input-cursor')
+            arrowIngredients.classList.toggle('rotate');
             MissingText.appendChild(li)
             li.classList.toggle('bluetag')
+            closeIcon.classList.add('fa-regular');
+            closeIcon.classList.add('fa-circle-xmark');
+            li.style.position = "relative;"
+            li.appendChild(closeIcon);
+            
+            
             MissingText.innerhTML = e.target.innerHTML;
         })
     })

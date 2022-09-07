@@ -171,6 +171,7 @@ i{
     border-radius: 5px;
     padding-left: 10px; ;
     cursor: pointer;
+    position: relative;
     
 }
 
@@ -243,7 +244,7 @@ datalist {
     background-color: #3282F7;
     
     width: 667px;
-    margin-top: 62.7%;
+    margin-top: 75%;
     height: 367px;
     border: none;
     border-radius: 0px 0px 5px 5px;
@@ -259,6 +260,7 @@ datalist {
     width: 210px;
     margin: 2px;
     margin-top: 8px;
+    margin-left: 10px;
     display: inline-block;
     font-family: 'Lato';
     font-weight: 400;
@@ -290,9 +292,17 @@ datalist {
   .bluetag {
     background-color: #3282F7;
     color: white;
-    width: 10%;
+    display:inline;
+    height: 37px;
+    
+    padding-left: 1%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    line-height: 35px;
     border-radius: 5px;
     margin: 3px;
+    position: relative;
   }
 
   .toggle-input {
@@ -305,4 +315,13 @@ datalist {
     
   }
  
-  
+  .sort-field{
+    padding: 30px;
+  }
+
+  .fa-circle-xmark {
+    position: absolute;
+    left: 80%;
+    top: 35%;
+
+  }
