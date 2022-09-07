@@ -143,10 +143,13 @@ i{
 }
 .fa-solid{
     position: absolute;
-    left: 75%;
+    left: 80%;
     top: 35%;
     cursor: pointer;
     color: white;
+}
+.input-cursor {
+  left: 125%;
 }
 
 .rotate{
@@ -166,7 +169,7 @@ i{
     height: 69px;
     width: 170px;
     border-radius: 5px;
-    padding-left: 10% ;
+    padding-left: 10px; ;
     cursor: pointer;
     
 }
@@ -239,18 +242,29 @@ datalist {
   .dropdown-menu {
     background-color: #3282F7;
     
-    width: 100%;
-    margin-top: 170%;
-    margin-left: 0%;
+    width: 667px;
+    margin-top: 62.7%;
+    height: 367px;
     border: none;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
+    
+    flex-direction: column;
     
   }
 
   a {
     color: white;
   }
-
+  .float {
+    width: 210px;
+    margin: 2px;
+    margin-top: 8px;
+    display: inline-block;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.6px;
+  }
   
   .appareils-dropdown {
     
@@ -279,7 +293,16 @@ datalist {
     width: 10%;
     border-radius: 5px;
     margin: 3px;
-    
-    
-   
   }
+
+  .toggle-input {
+    width: 667px !important;
+    margin-right: 55%;
+  }
+
+  .col-5{
+    margin-right: 15%;
+    
+  }
+ 
+  

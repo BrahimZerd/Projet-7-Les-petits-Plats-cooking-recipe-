@@ -42,12 +42,14 @@
         </div>
         <div class="container-fluid">
             <div class="row">
-                <div class ="col-2">
+                <div class ="col-2 " id="ingredients-div">
                 <li class="dropdown">
-                    <input aria-expanded="false" placeholder="Ingredients" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"id="ingredients-select" href="#"></input>
-                    <span><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+                    <input aria-expanded="false" type="search" list="ingredients-list" placeholder="Ingredients" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle"id="ingredients-select" href="#"></input>
+                    <span id="ingredients-arrow"><i class="fa-solid fa-chevron-down" id="select-rotate-ingredients"></i></span>
+                    
                       <ul class="dropdown-menu" id="ingredients-dropdown">
                       </ul>
+                    
                     </li>
                 </div>
                 <div class ="col-2">

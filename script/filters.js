@@ -1,6 +1,9 @@
 const arrowSelectMenu = document.getElementById('select-rotate-ingredients')
-const ingredientsSelect = document.getElementById('ingredients-select');
 
-ingredientsSelect.addEventListener('click',function(){
+const ingredients = document.getElementById('ingredients-select')
+const ingredientsDiv = document.getElementById('ingredients-div')
+
+ingredientsDiv.addEventListener('click',function(){
     arrowSelectMenu.classList.toggle('rotate')
 })
+

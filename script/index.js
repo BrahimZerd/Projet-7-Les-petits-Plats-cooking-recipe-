@@ -5,11 +5,14 @@ const recipesJSON = Object.assign({}, recipes)
 const recipesField = document.getElementById('recipes-field')
 const MissingText = document.createElement('span');
 const InputDiv = document.getElementById('inputSelector')
+const ingredients = document.getElementById('ingredients-select')
+const ingredientsDiv = document.getElementById('ingredients-div')
+const placeholder = document.getElementById('ingredients-select').getAttribute("placeholder");
 
 InputDiv.parentNode.appendChild(MissingText)
 
-       
-SearchInput.addEventListener('keyup',filterData)
+ingredients.addEventListener('click',openFilterBar);       
+SearchInput.addEventListener('keyup',filterData);
 
 function filterData(e) {
     
@@ -39,6 +42,8 @@ function filterData(e) {
 
     }
     let newArr = []
+
+    //filtrer les ingrédients 1 à 1 et enlever les doublons, garder que les 30 premiers pour les disposer dans le tableau
     recipes.map(element => { element.ingredients.filter(subelem => {
         
         
@@ -59,24 +64,39 @@ function filterData(e) {
     console.log(sortedSliced)
     const sortedIngredients = new Set(arr2)
     const li = document.createElement('li');
+    
     const ingredientsInput = document.getElementById('ingredients-dropdown')
     sortedSliced.forEach(ingredient => {
         const li = document.createElement('li');
         ingredientsInput.appendChild(li)
+        li.classList.add('float')
         li.innerHTML = ingredient
+        
+
         li.addEventListener('click',function(e){
             console.log(e.target.innerHTML)
             const SearchBar = document.querySelector('search-bar');
+
             MissingText.appendChild(li)
             li.classList.toggle('bluetag')
             MissingText.innerhTML = e.target.innerHTML;
         })
     })
 
-    const ingredients = document.getElementById('ingredients-select')
-    ingredients.addEventListener('click',function(){
-        ingredients.style.width ="100%"
-    })
+    const arrowIngredients = document.getElementById('select-rotate-ingredients');
+    ingredients.addEventListener('click',openFilterBar);  
+    function openFilterBar() {
+        ingredientsDiv.classList.toggle('col-5');
+        this.classList.toggle('toggle-input')
+        arrowIngredients.classList.toggle('input-cursor')
+        arrowIngredients.classList.toggle('rotate');
+        //ingredients.setAttribute('placeholder','Rechercher un ingrédient');
+        
+        
+        
+    }
+    
+    
 
     
         
