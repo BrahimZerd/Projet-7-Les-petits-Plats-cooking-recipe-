@@ -1,113 +1,167 @@
 
 //rotation des éléments du select menu
 const SearchInput = document.querySelector('input');
-const recipesJSON = Object.assign({}, recipes)
+
 const recipesField = document.getElementById('recipes-field')
-const MissingText = document.createElement('span');
+const inputError = document.createElement('span');
 const InputDiv = document.getElementById('inputSelector')
-const ingredients = document.getElementById('ingredients-select')
+const ingredientsFilter = document.getElementById('ingredients-select')
 const ingredientsDiv = document.getElementById('ingredients-div')
 const placeholder = document.getElementById('ingredients-select').getAttribute("placeholder");
+const tagField = document.getElementById('tag-field');
+const arrowIngredients = document.getElementById('select-rotate-ingredients');
 
-InputDiv.parentNode.appendChild(MissingText)
 
-ingredients.addEventListener('click',openFilterBar);       
+InputDiv.parentNode.appendChild(inputError)
+
+ingredientsFilter.addEventListener('click',openFilterBar);
+ingredientsFilter.addEventListener('keyup',filterInput) 
 SearchInput.addEventListener('keyup',filterData);
 
+
+
+
+
+
+
+
+function openFilterBar() {
+    ingredientsDiv.classList.toggle('col-5');
+
+    this.classList.toggle('toggle-input')
+    arrowIngredients.classList.toggle('input-cursor')
+    arrowIngredients.classList.toggle('rotate');
+
+        if(ingredientsDiv.classList.contains('col-5')){
+           this.setAttribute('placeholder','Rechercher un ingrédient') 
+    } else {
+            this.setAttribute('placeholder','Ingredients')
+    }
+
+    //ingredients.setAttribute('placeholder','Rechercher un ingrédient');
+    
+    
+    
+}
+
+
+
+//fonction de filtre de la barre de recherche principal par nom & description
 function filterData(e) {
     
     const searchedString = e.target.value;
     
     if(searchedString.length < 3 && searchedString.length > 0){
-        MissingText.innerHTML = "Veuillez entrer plus de caractères dans le champ de recherche"
-        MissingText.style.color = "red"
-        MissingText.style.marginLeft ="1%"
+        inputError.innerHTML = "Veuillez indiquer au minimum 3 caractères dans le champs"
+        inputError.style.color = "red"
+        inputError.style.marginLeft ="1%"
     } else {
-        MissingText.innerHTML = "";
+        
+        inputError.innerHTML = "";
         recipesField.innerHTML = "";
         let filteredName =recipes.filter(element => element.name.toLowerCase().includes(searchedString));
-        let filteredDescription = recipes.filter(element => element.description.toLowerCase().includes(searchedString))
-        const filteredIngredient = recipes.filter(element => element.ingredients.filter(el => el.ingredient.toLowerCase().includes(searchedString)));
-            
+        let filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
+        let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
+                ingredients.ingredient
+          });
+          
+          });
+        
         //suppression des doublons entre les tableaux description & noms
         filteredName = filteredName.filter(val => !filteredDescription.includes(val));
-        createCard(filteredDescription);
-        createCard(filteredName);
-        
+        createAllCards(filteredDescription);
+        createAllCards(filteredName);
         if (filteredName == 0 && filteredDescription == 0) {
             recipesField.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
         }
     }
+}
+
+    let tablo  = [];
+    let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
+    tablo.push(ingredients.ingredient)
+    });})
+    const filteredArray = tablo.filter(function(ele , pos){
+    return tablo.indexOf(ele) == pos;
+}) 
+    const sliced = filteredArray.slice(0,30);
     
-
-    }
-    let newArr = []
-
-    //filtrer les ingrédients 1 à 1 et enlever les doublons, garder que les 30 premiers pour les disposer dans le tableau
-    recipes.map(element => { element.ingredients.filter(subelem => {
-        
-        
-        return newArr.push(subelem.ingredient)
-        
-      });
-      
-      ;
-      
-    });
-
-    const arr2 = newArr.map(function(value){
-        return value.toLowerCase();
+    
+    const upperCaseArray = sliced.map(function(value){
+        return value.charAt(0).toUpperCase() + value.slice(1);;
         
     });
-    const slicednewArr = arr2.slice(0,36);
-    const sortedSliced = new Set(slicednewArr)
-    console.log(sortedSliced)
-    const sortedIngredients = new Set(arr2)
+    console.log(upperCaseArray)
     const li = document.createElement('li');
     
     const ingredientsInput = document.getElementById('ingredients-dropdown')
-    sortedSliced.forEach(ingredient => {
+
+    //création des listes de mots dans la catégorie "Ingrédients"
+    upperCaseArray.forEach(ingredient => {
         const li = document.createElement('li');
         ingredientsInput.appendChild(li)
         li.classList.add('float')
         li.innerHTML = ingredient
         
-
+        //au clic sur un mot créé un tag dans la catégorie supérieur
         li.addEventListener('click',function(e){
             console.log(e.target.innerHTML)
-            const SearchBar = document.querySelector('search-bar');
+            
             const closeIcon = document.createElement('i');
-            ingredients.classList.toggle('toggle-input')
+            ingredientsFilter.classList.toggle('toggle-input')
             ingredientsDiv.classList.toggle('col-5');
             arrowIngredients.classList.toggle('input-cursor')
             arrowIngredients.classList.toggle('rotate');
-            MissingText.appendChild(li)
+            tagField.appendChild(li)
             li.classList.toggle('bluetag')
             closeIcon.classList.add('fa-regular');
             closeIcon.classList.add('fa-circle-xmark');
-            li.style.position = "relative;"
+            ingredientsFilter.setAttribute('placeholder','Ingredients');
+            
             li.appendChild(closeIcon);
             
             
-            MissingText.innerhTML = e.target.innerHTML;
+            tagField.innerhTML = e.target.innerHTML;
         })
     })
 
-    const arrowIngredients = document.getElementById('select-rotate-ingredients');
-    ingredients.addEventListener('click',openFilterBar);  
-    function openFilterBar() {
-        ingredientsDiv.classList.toggle('col-5');
-        this.classList.toggle('toggle-input')
-        arrowIngredients.classList.toggle('input-cursor')
-        arrowIngredients.classList.toggle('rotate');
-        //ingredients.setAttribute('placeholder','Rechercher un ingrédient');
-        
-        
-        
-    }
-    
-    
+   
+    function filterInput(e){
+        let inputValue = e.target.value;
+        ingredientsInput.innerHTML="";
+        let ok = upperCaseArray.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
+        let pe = filteredArray.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
+        pe.slice(-30).forEach(ingredient => {
+            const li = document.createElement('li');
+            ingredientsInput.appendChild(li)
+            li.classList.add('float')
+            li.innerHTML = ingredient
+        })
+       
+       
 
+        
+
+        
+        }
+
+
+        let something = recipes.map(recipe => recipe.ingredients.map(ingredient => ingredient))
+          console.log(something)
+          
+        let filtered = something.filter(ingredientList => ingredientList.filter(ingredient => ingredient));
+          
+        const filt = something.forEach(function(inf) {
+            const {ingredient} = inf
+            
+            const arrayIngredients = inf.map(ingredient => ingredient.ingredient)
+            const arrayFindIngredients = arrayIngredients.filter(ingredient => ingredient.toLowerCase().includes())
+            const arrayAllIngredients = arrayIngredients.filter(ingredient => ingredient)
+           
+           
+           
+        })
+        
     
         
     

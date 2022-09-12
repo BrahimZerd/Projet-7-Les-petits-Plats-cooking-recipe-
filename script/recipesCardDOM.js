@@ -1,6 +1,6 @@
 //intégration des cards du dom
 
-function createCard(recipes) {
+function createAllCards(recipes) {
     const namesArray = recipes.forEach(function(data) { 
             const icone = document.createElement('i');
             const article = document.createElement('div');
@@ -98,7 +98,7 @@ function createCard(recipes) {
                 howToDo.innerHTML = `<strong>${ingredient}</strong>:&nbsp; ${quantity}&nbsp;${unit}`
                 
                 if( quantity === "undefined"){
-                    howToDo.innerHTML = "aurevoir"
+                    howToDo.innerHTML = ""
                 }else if(typeof unit === "undefined"){
                     howToDo.innerHTML = `<strong>${ingredient}</strong>:&nbsp;${quantity}`
                 }
@@ -111,7 +111,7 @@ function createCard(recipes) {
     
     }
 
-    createCard(recipes);
+    createAllCards(recipes);
 
 
 
