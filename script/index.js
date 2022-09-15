@@ -1,7 +1,7 @@
 
 //rotation des éléments du select menu
 const SearchInput = document.querySelector('input');
-
+const ingredientsDropdown = document.getElementById('ingredients-dropdown');
 const recipesField = document.getElementById('recipes-field')
 const inputError = document.createElement('span');
 const InputDiv = document.getElementById('inputSelector')
@@ -10,8 +10,7 @@ const ingredientsDiv = document.getElementById('ingredients-div')
 const placeholder = document.getElementById('ingredients-select').getAttribute("placeholder");
 const tagField = document.getElementById('tag-field');
 const arrowIngredients = document.getElementById('select-rotate-ingredients');
-
-
+const ingredientsInput = document.getElementById('ingredients-dropdown');
 InputDiv.parentNode.appendChild(inputError)
 
 ingredientsFilter.addEventListener('click',openFilterBar);
@@ -23,8 +22,11 @@ SearchInput.addEventListener('keyup',filterData);
 
 
 
-
-
+//fonction de fermeture de tag
+function close() {
+    document.querySelector('float').remove();
+}
+//fonction pour ouvrir le filtre de la partie "Ingredient"
 function openFilterBar() {
     ingredientsDiv.classList.toggle('col-5');
 
@@ -32,25 +34,56 @@ function openFilterBar() {
     arrowIngredients.classList.toggle('input-cursor')
     arrowIngredients.classList.toggle('rotate');
 
-        if(ingredientsDiv.classList.contains('col-5')){
-           this.setAttribute('placeholder','Rechercher un ingrédient') 
+    if(ingredientsDiv.classList.contains('col-5')){
+        this.setAttribute('placeholder','Rechercher un ingrédient');
     } else {
-            this.setAttribute('placeholder','Ingredients')
+        this.setAttribute('placeholder','Ingredients');
     }
-
-    //ingredients.setAttribute('placeholder','Rechercher un ingrédient');
-    
-    
-    
 }
-
-
-
+//fonction pour filtrer les ingrédients dans la barre de recherche "Ingredients"
+function filterInput(e){
+    let inputValue = e.target.value;
+    ingredientsInput.innerHTML="";
+    let ok = upperCaseArrayIngredients.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
+    let displayIngredients = filteredArray.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
+    displayIngredients.slice(-30).forEach(ingredient => {
+        const li = document.createElement('li');
+        ingredientsInput.appendChild(li)
+        li.classList.add('float')
+        li.innerHTML = ingredient
+    })
+}
 //fonction de filtre de la barre de recherche principal par nom & description
 function filterData(e) {
     
     const searchedString = e.target.value;
-    
+    let filteredName =recipes.filter(element => element.name.toLowerCase().includes(searchedString));
+    let filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
+        
+    let filteredWithDoubles = filteredName.concat(filteredDescription);
+    let filteredTotal = filteredWithDoubles.filter( (ele,pos)=>filteredWithDoubles.indexOf(ele) == pos);
+    let tablo = [];
+    let filteredingredients = recipes.map(recipe => {
+        recipe.ingredients.map(ingredient => {
+        const ingredientObject = {ingredient}
+            
+            
+            
+        if(ingredientObject.ingredient.ingredient.toLowerCase().includes(searchedString)) {
+            filteredTotal.push(recipe)
+            filteredTotal = filteredTotal.filter( (ele,pos)=>filteredTotal.indexOf(ele) == pos)
+            list = ingredientObject.ingredient.ingredient;
+               
+                
+        }
+     
+    })});
+
+
+
+
+
+
     if(searchedString.length < 3 && searchedString.length > 0){
         inputError.innerHTML = "Veuillez indiquer au minimum 3 caractères dans le champs"
         inputError.style.color = "red"
@@ -59,110 +92,49 @@ function filterData(e) {
         
         inputError.innerHTML = "";
         recipesField.innerHTML = "";
-        let filteredName =recipes.filter(element => element.name.toLowerCase().includes(searchedString));
-        let filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
-        let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
-                ingredients.ingredient
-          });
-          
-          });
-        
-        //suppression des doublons entre les tableaux description & noms
-        filteredName = filteredName.filter(val => !filteredDescription.includes(val));
-        createAllCards(filteredDescription);
-        createAllCards(filteredName);
-        if (filteredName == 0 && filteredDescription == 0) {
+        createAllCards(filteredTotal);
+        if (filteredTotal == 0 ) {
             recipesField.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
         }
-    }
+    } 
+      
 }
 
-    let tablo  = [];
-    let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
-    tablo.push(ingredients.ingredient)
-    });})
-    const filteredArray = tablo.filter(function(ele , pos){
-    return tablo.indexOf(ele) == pos;
-}) 
-    const sliced = filteredArray.slice(0,30);
-    
-    
-    const upperCaseArray = sliced.map(function(value){
-        return value.charAt(0).toUpperCase() + value.slice(1);;
+recipes.map(recipe => {
+    let newarrayIngredients = [];
+    recipe.ingredients.map(ingredient => {
+        const ingredientObject = {ingredient}
+       
         
-    });
-    console.log(upperCaseArray)
-    const li = document.createElement('li');
-    
-    const ingredientsInput = document.getElementById('ingredients-dropdown')
-
-    //création des listes de mots dans la catégorie "Ingrédients"
-    upperCaseArray.forEach(ingredient => {
-        const li = document.createElement('li');
-        ingredientsInput.appendChild(li)
-        li.classList.add('float')
-        li.innerHTML = ingredient
         
-        //au clic sur un mot créé un tag dans la catégorie supérieur
-        li.addEventListener('click',function(e){
-            console.log(e.target.innerHTML)
-            
-            const closeIcon = document.createElement('i');
-            ingredientsFilter.classList.toggle('toggle-input')
-            ingredientsDiv.classList.toggle('col-5');
-            arrowIngredients.classList.toggle('input-cursor')
-            arrowIngredients.classList.toggle('rotate');
-            tagField.appendChild(li)
-            li.classList.toggle('bluetag')
-            closeIcon.classList.add('fa-regular');
-            closeIcon.classList.add('fa-circle-xmark');
-            ingredientsFilter.setAttribute('placeholder','Ingredients');
-            
-            li.appendChild(closeIcon);
-            
-            
-            tagField.innerhTML = e.target.innerHTML;
-        })
-    })
-
+    
    
-    function filterInput(e){
-        let inputValue = e.target.value;
-        ingredientsInput.innerHTML="";
-        let ok = upperCaseArray.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
-        let pe = filteredArray.filter(ingredient => ingredient.toLowerCase().includes(inputValue));
-        pe.slice(-30).forEach(ingredient => {
-            const li = document.createElement('li');
-            ingredientsInput.appendChild(li)
-            li.classList.add('float')
-            li.innerHTML = ingredient
-        })
-       
-       
-
-        
-
-        
-        }
+        const li = document.createElement('li'); 
+                ingredientsInput.appendChild(li)
+                li.classList.add('float')
+                li.innerHTML = ingredientObject.ingredient.ingredient})})
 
 
-        let something = recipes.map(recipe => recipe.ingredients.map(ingredient => ingredient))
-          console.log(something)
-          
-        let filtered = something.filter(ingredientList => ingredientList.filter(ingredient => ingredient));
-          
-        const filt = something.forEach(function(inf) {
-            const {ingredient} = inf
             
-            const arrayIngredients = inf.map(ingredient => ingredient.ingredient)
-            const arrayFindIngredients = arrayIngredients.filter(ingredient => ingredient.toLowerCase().includes())
-            const arrayAllIngredients = arrayIngredients.filter(ingredient => ingredient)
-           
-           
-           
-        })
-        
+
+
+
+
+  
     
+    
+    
+
+    
+   
+   
+    
+   
+        
+        
+
+
+        
         
     
 
