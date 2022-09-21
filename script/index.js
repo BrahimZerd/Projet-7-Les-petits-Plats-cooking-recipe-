@@ -5,30 +5,34 @@ const ingredientsDropdown = document.getElementById('ingredients-dropdown');
 const recipesField = document.getElementById('recipes-field')
 const inputError = document.createElement('span');
 const InputDiv = document.getElementById('inputSelector')
-const ingredientsFilter = document.getElementById('ingredients-select')
+const ingredientsFilter = document.getElementById('ingredients-select');
+const ustensilFilter = document.getElementById('ustensiles-select')
+const appareilFilter = document.getElementById('appareils-select');
 const ingredientsDiv = document.getElementById('ingredients-div')
+const appareilDiv = document.getElementById('appareil-div')
+const ustensilDiv = document.getElementById('ustensile-div');
 const placeholder = document.getElementById('ingredients-select').getAttribute("placeholder");
 const tagField = document.getElementById('tag-field');
 const arrowIngredients = document.getElementById('select-rotate-ingredients');
+const arrowAppareil = document.getElementById('select-rotate-appareil');
+const arrowUstensil = document.getElementById('select-rotate-ustensil');
 const ingredientsInput = document.getElementById('ingredients-dropdown');
 const appareilsInput = document.getElementById('appareils-dropdown');
+const ustensilInput = document.getElementById('ustensiles-dropdown');
 InputDiv.parentNode.appendChild(inputError)
 
-ingredientsFilter.addEventListener('click',openFilterBar);
+ingredientsFilter.addEventListener('click',openIngredientFilter);
+appareilFilter.addEventListener('click',openAppareilFilter);
+ustensilFilter.addEventListener('click',openUstensilFilter);
+
+
 ingredientsFilter.addEventListener('keyup',filterIngredientsTag) 
+appareilFilter.addEventListener('keyup',filterAppareilTag)
 SearchInput.addEventListener('keyup',filterMainSearch);
 
 
-
-
-
-
-//fonction de fermeture de tag
-function close() {
-    document.querySelector('float').remove();
-}
-//fonction pour ouvrir le filtre de la partie "Ingredient"
-function openFilterBar() {
+//fonction pour ouvrir les parties filtres
+function openIngredientFilter() {
     ingredientsDiv.classList.toggle('col-5');
 
     this.classList.toggle('toggle-input')
@@ -41,8 +45,30 @@ function openFilterBar() {
         this.setAttribute('placeholder','Ingredients');
     }
 }
-
-//fonction de filtre de la barre de recherche principal par nom & description
+function openAppareilFilter() {
+    appareilDiv.classList.toggle('col-5');
+    this.classList.toggle('toggle-input');
+    arrowAppareil.classList.toggle('input-cursor')
+    arrowAppareil.classList.toggle('rotate');
+    if(appareilDiv.classList.contains('col-5')){
+        this.setAttribute('placeholder','Rechercher un appareil');
+    } else {
+        this.setAttribute('placeholder','Appareils');
+    }
+    
+}
+function openUstensilFilter() {
+    ustensilDiv.classList.toggle('col-5');
+    this.classList.toggle('toggle-input');
+    arrowUstensil.classList.toggle('input-cursor')
+    arrowUstensil.classList.toggle('rotate');
+    if(ustensilDiv.classList.contains('col-5')){
+        this.setAttribute('placeholder','Rechercher un ustensile');
+    } else {
+        this.setAttribute('placeholder','Ustensiles');
+    }
+}
+//fonction de filtre de la barre de recherche principal
 
 function filterByName(e) {
     let searchedString = e.target.value;
@@ -51,6 +77,7 @@ function filterByName(e) {
     if(filterName.length > 0){
     console.log('name')
     createAllCards(filterName);
+    
     }else{
         filterByDescription(e)
     }
@@ -108,52 +135,48 @@ function filterbyIngredients(e){
 
 
 
-    
-
-
-console.log(recipes)
-
-//intégration des listes dans le filtre ingrédients 
-recipes.map(recipe => {
-    recipe.ingredients.map(ingredient => {
-        const ingredientObject = {ingredient}
-        const li = document.createElement('li'); 
-        ingredientsInput.appendChild(li)
-        li.classList.add('float')
-        li.innerHTML = ingredientObject.ingredient.ingredient
-        
-    })})
-    let arrAppareils = [];
-    let filteredAppareils;
-    recipes.map(recipe => {
-        const appareilObject = recipe.appliance
-            arrAppareils.push(appareilObject)
-            const li = document.createElement('li'); 
-            appareilsInput.appendChild(li)
-            li.classList.add('float')
-            li.innerHTML = "";
-            filteredAppareils = arrAppareils.filter(function(ele , pos){
-                return arrAppareils.indexOf(ele) == pos;
-            })})
-           console.log( filteredAppareils )  
-
 //fonction pour filtrer les ingrédients dans la barre de recherche "Ingredients"
 function filterIngredientsTag(e){
     let inputValue = e.target.value;
     ingredientsInput.innerHTML="";
-    
-    let displayIngredients = recipes.filter(ingredients => ingredients.toLowerCase().includes(inputValue));
+    let tablo  = [];
+    let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
+    tablo.push(ingredients.ingredient)
+    });})
+    const filteredArray = tablo.filter(function(ele , pos){
+    return tablo.indexOf(ele) == pos;
+}) 
+    let displayIngredients = filteredArray.filter(ingredients => ingredients.toLowerCase().includes(inputValue));
     displayIngredients.slice(-30).forEach(ingredient => {
         const li = document.createElement('li');
         ingredientsInput.appendChild(li)
         li.classList.add('float')
         li.innerHTML = ingredient
+        li.addEventListener('click',createIngredientTag)
+        li.addEventListener('click',close)
     })
 }
-function filterAppareilTag(){
-    let inputValue = target.value;
+
+
+function filterAppareilTag(e){
+    let inputValue = e.target.value;
     appareilsInput.innerHTML = "";
-    let ok
+    let array = [];
+    let filteredAppareils = recipes.filter(recipe => {
+        array.push(recipe.appliance)
+    });
+    let noDouble = array.filter(function(ele , pos){
+        return array.indexOf(ele) == pos;
+})
+    let displayAppareil = noDouble.filter(appareil => appareil.toLowerCase().includes(inputValue));
+    displayAppareil.forEach(appareil => {
+        const li = document.createElement('li');
+        appareilsInput.appendChild(li)
+        li.classList.add('float')
+        li.innerHTML = appareil
+        li.addEventListener('click',createAppareilTag)
+        li.addEventListener('click',close)
+    })
 }
 
 

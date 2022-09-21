@@ -7,7 +7,7 @@
         width: 1270px;
     }
 }
-body{
+body, html{
     margin:0;
     font-family:'Roboto', 'sans-serif';
     width: 100%;
@@ -183,7 +183,7 @@ i{
     height: 69px;
     width: 170px;
     border-radius: 5px;
-    padding-left: 10% ;
+    padding-left: 10px ;
     cursor: pointer;
 
 }
@@ -194,7 +194,7 @@ i{
     height: 69px;
     width: 170px;
     border-radius: 5px;
-    padding-left: 10% ;
+    padding-left: 10px ;
     cursor: pointer;
     background-color: #ED6454;
     border: #ED6454;
@@ -249,14 +249,14 @@ datalist {
     height: 367px;
     border: none;
     border-radius: 0px 0px 5px 5px;
-    
+    transform: translate3d(0px, -301px, 0px) !important;
     flex-direction: column;
     
   }
 
   a {
     color: white;
-  }
+  } 
   .float {
     width: 210px;
     margin: 2px;
@@ -288,27 +288,62 @@ datalist {
   }
   #appareils-select {
     border: #68D9A4;
+    
   }
 
   .bluetag {
+    display: flex;
     background-color: #3282F7;
     color: white;
     display:inline;
     height: 37px;
-    
     padding-left: 1%;
-    padding-right: 3%;
+    padding-right: 4%;
     padding-top: 1%;
     padding-bottom: 1%;
     line-height: 35px;
     border-radius: 5px;
     margin: 3px;
     position: relative;
+    width: fit-content;
+    
+  }
+  .orangetag{
+    display: flex;
+    background-color: #ED6454;
+    color: white;
+    display:inline;
+    height: 37px;
+    padding-left: 1%;
+    padding-right: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    line-height: 35px;
+    border-radius: 5px;
+    margin: 3px;
+    position: relative;
+    width: fit-content;
+  }
+  .greentag{
+    display: flex;
+    background-color: #68D9A4;
+    color: white;
+    display:inline;
+    height: 37px;
+    padding-left: 1%;
+    padding-right: 4%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    line-height: 35px;
+    border-radius: 5px;
+    margin: 3px;
+    position: relative;
+    width: fit-content;
   }
 
   .toggle-input {
     width: 667px !important;
-    margin-right: 55%;
+    
   }
 
   .col-5{
@@ -330,3 +365,33 @@ datalist {
   li:nth-of-type(1n+31) {
     display: none;
 } 
+
+.li-appareils,
+.li-ustensil{
+    width: 210px;
+    margin: 2px;
+    margin-top: 8px;
+    margin-left: 10px;
+    display: inline-block;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.6px;
+}
+
+#appareils-dropdown {
+  background-color: #68D9A4;
+  width: 667px;
+  height: 367px;
+  border: none;
+  border-radius: 0px 0px 5px 5px;
+  flex-direction: column;
+}
+#ustensiles-dropdown {
+  background-color: #ED6454;
+  width: 667px;
+  height: 367px;
+  border: none;
+  border-radius: 0px 0px 5px 5px;
+  flex-direction: column;
+}
