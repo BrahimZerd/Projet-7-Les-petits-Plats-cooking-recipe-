@@ -1,7 +1,9 @@
 //intégration des cards du dom
 
-function createAllCards(recipes) {
-    const namesArray = recipes.forEach(function(data) { 
+function createCard(data) {
+
+    
+        
             const icone = document.createElement('i');
             const article = document.createElement('div');
             const card = document.createElement('div');
@@ -15,7 +17,7 @@ function createAllCards(recipes) {
             const quantityBloc = document.createElement('div');
             const recipesField = document.getElementById('recipes-field');
       
-        const {name, id, description, time, appliance,ingredients} = data
+        const {name,description, time,ingredients} = data
 
             article.classList.add('col-md-4');
             icone.classList.add('fa-clock');
@@ -106,15 +108,12 @@ function createAllCards(recipes) {
                     howToDo.innerHTML = `<strong>${ingredient}</strong>`;
                 }
             })
-            
-    });
+            return  data, createCard
+    };
+   
     
-    }
-
-    createAllCards(recipes);
-
-
-
     
+   
 
-    
+
+  

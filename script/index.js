@@ -26,10 +26,13 @@ appareilFilter.addEventListener('click',openAppareilFilter);
 ustensilFilter.addEventListener('click',openUstensilFilter);
 
 
-ingredientsFilter.addEventListener('keyup',filterIngredientsTag) 
+ingredientsFilter.addEventListener('keyup',filterIngredientsTag); 
 appareilFilter.addEventListener('keyup',filterAppareilTag)
 SearchInput.addEventListener('keyup',filterMainSearch);
+ustensilFilter.addEventListener('keyup',filterUstensilesTag)
 
+//création des éléments du DOM carte par carte 
+recipes.forEach(recipe => {createCard(recipe)})
 
 //fonction pour ouvrir les parties filtres
 function openIngredientFilter() {
@@ -69,18 +72,16 @@ function openUstensilFilter() {
     }
 }
 //fonction de filtre de la barre de recherche principal
-
+let globalRecipes = [];
 function filterByName(e) {
-    let searchedString = e.target.value;
+    const searchedString = e.target.value;
     const filterName = recipes.filter(element => element.name.toLowerCase().includes(searchedString));
     
-    if(filterName.length > 0){
     console.log('name')
-    createAllCards(filterName);
+    globalRecipes = [];
+    filterName.forEach(recipe => globalRecipes.push(recipe));
+    filterByDescription(e)
     
-    }else{
-        filterByDescription(e)
-    }
 }
 function filterMainSearch(e){
     let searchedString = e.target.value;
@@ -98,21 +99,18 @@ function filterMainSearch(e){
 
 function filterByDescription(e){
     const searchedString = e.target.value;
-    let filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
-    if(filteredDescription.length > 0 ) {
-        console.log('description')
-        createAllCards(filteredDescription);
-    } else {
-        filterbyIngredients(e)
-    }
+    const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
+    filteredDescription.forEach(recipe => globalRecipes.push(recipe));
+    filterbyIngredients(e)
+    
 }
 
 
 function filterbyIngredients(e){
     let searchedString = e.target.value;
-   
+    let newArrayForIngredients = [];
     recipes.map(recipe => {
-        let newArrayForIngredients = [];
+        
         recipe.ingredients.map(ingredient => {
         const ingredientObject = {ingredient};
         
@@ -121,10 +119,12 @@ function filterbyIngredients(e){
             newArrayForIngredients.push(recipe)
             return newArrayForIngredients
         } 
-        createAllCards(newArrayForIngredients)}
         
-    )
-})
+        
+    })})
+    newArrayForIngredients.forEach(recipe => globalRecipes.push(recipe))
+    displaySearchedRecipes(globalRecipes);
+    
     if(recipesField.firstChild){
     
     }else {
@@ -136,17 +136,18 @@ function filterbyIngredients(e){
 
 
 //fonction pour filtrer les ingrédients dans la barre de recherche "Ingredients"
-function filterIngredientsTag(e){
-    let inputValue = e.target.value;
+function filterIngredientsTag(data){
+    
+    
     ingredientsInput.innerHTML="";
     let tablo  = [];
-    let filteredIngredient= recipes.filter(recipe => { recipe.ingredients.filter(ingredients => {
+    let filteredIngredient= data.filter(recipe => { recipe.ingredients.filter(ingredients => {
     tablo.push(ingredients.ingredient)
     });})
     const filteredArray = tablo.filter(function(ele , pos){
     return tablo.indexOf(ele) == pos;
 }) 
-    let displayIngredients = filteredArray.filter(ingredients => ingredients.toLowerCase().includes(inputValue));
+    let displayIngredients = filteredArray.filter(ingredients => ingredients.toLowerCase());
     displayIngredients.slice(-30).forEach(ingredient => {
         const li = document.createElement('li');
         ingredientsInput.appendChild(li)
@@ -155,20 +156,21 @@ function filterIngredientsTag(e){
         li.addEventListener('click',createIngredientTag)
         li.addEventListener('click',close)
     })
+    
 }
 
 
-function filterAppareilTag(e){
-    let inputValue = e.target.value;
+function filterAppareilTag(data){
+   
     appareilsInput.innerHTML = "";
     let array = [];
-    let filteredAppareils = recipes.filter(recipe => {
+    let filteredAppareils = data.filter(recipe => {
         array.push(recipe.appliance)
     });
     let noDouble = array.filter(function(ele , pos){
         return array.indexOf(ele) == pos;
 })
-    let displayAppareil = noDouble.filter(appareil => appareil.toLowerCase().includes(inputValue));
+    let displayAppareil = noDouble.filter(appareil => appareil.toLowerCase());
     displayAppareil.forEach(appareil => {
         const li = document.createElement('li');
         appareilsInput.appendChild(li)
@@ -176,18 +178,70 @@ function filterAppareilTag(e){
         li.innerHTML = appareil
         li.addEventListener('click',createAppareilTag)
         li.addEventListener('click',close)
+        li.addEventListener('click',function createFromTag(){  
+            
+            
+            
+           data.forEach(recipe => { recipe.appliance;
+            if(tagField.innerText == recipe.appliance) {
+               globalRecipes.push(recipe)
+                }
+           
+        })
+        let noDoubleAppliance = globalRecipes.filter(function(ele , pos){
+            return globalRecipes.indexOf(ele) == pos;
+    })
+        console.log(noDoubleAppliance)
+        recipesField.innerHTML = "";
+        
+        })
     })
 }
 
 
    
-   
+function filterUstensilesTag(data){
+    ustensilInput.innerHTML = "";
+    let array = [];
+    let filteredUstensils = data.filter(recipe => {
+        array.push(recipe.appliance)
+    });
+    let noDouble = array.filter(function(ele , pos){
+        return array.indexOf(ele) == pos;
+})
+let displayUstensils = noDouble.filter(appareil => appareil.toLowerCase());
+displayUstensils.forEach(ustensil => {
+    const li = document.createElement('li');
+    ustensilInput.appendChild(li)
+    li.classList.add('float')
+    li.innerHTML = ustensil
+    li.addEventListener('click',createUstensilTag)
+    li.addEventListener('click',close)
+})
+}
 
    
  
 
-        
-        
+      
+function displaySearchedRecipes(data){
+    const filteredArray = data.filter(function(ele , pos){
+        return data.indexOf(ele) == pos;
+    }) 
+    filteredArray.forEach(recipe => createCard(recipe))
+    filterIngredientsTag(filteredArray)
+    filterIngredientsTag(filteredArray)
+    filterAppareilTag(filteredArray)
+    
     
 
+}
+
+
+//Créer une fonction qui releve les cards du DOM / => ensuite avec celle ci, on trie dans les cartes les éléments incluants les éléments.
+
     
+    
+
+
+

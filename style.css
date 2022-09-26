@@ -228,7 +228,9 @@ datalist {
   option:hover, .active{
     background-color: lightblue;
   }
-
+  input {
+    outline: none;
+  }
   input span {
     font-size: 200px;
   }
@@ -382,7 +384,7 @@ datalist {
 #appareils-dropdown {
   background-color: #68D9A4;
   width: 667px;
-  height: 367px;
+  height: 180px;
   border: none;
   border-radius: 0px 0px 5px 5px;
   flex-direction: column;
