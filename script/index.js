@@ -25,11 +25,12 @@ ingredientsFilter.addEventListener('click',openIngredientFilter);
 appareilFilter.addEventListener('click',openAppareilFilter);
 ustensilFilter.addEventListener('click',openUstensilFilter);
 
+ingredientsInput.addEventListener('keyup',filterIngredientsTag)
 
-ingredientsFilter.addEventListener('keyup',filterIngredientsTag); 
-appareilFilter.addEventListener('keyup',filterAppareilTag)
-SearchInput.addEventListener('keyup',filterMainSearch);
-ustensilFilter.addEventListener('keyup',filterUstensilesTag)
+
+
+SearchInput.addEventListener('input',filterMainSearch);
+
 
 //création des éléments du DOM carte par carte 
 recipes.forEach(recipe => {createCard(recipe)})
@@ -115,12 +116,9 @@ function filterbyIngredients(e){
         const ingredientObject = {ingredient};
         
         if(ingredientObject.ingredient.ingredient.toLowerCase().includes(searchedString)) {
-            
             newArrayForIngredients.push(recipe)
             return newArrayForIngredients
         } 
-        
-        
     })})
     newArrayForIngredients.forEach(recipe => globalRecipes.push(recipe))
     displaySearchedRecipes(globalRecipes);
@@ -137,8 +135,9 @@ function filterbyIngredients(e){
 
 //fonction pour filtrer les ingrédients dans la barre de recherche "Ingredients"
 function filterIngredientsTag(data){
+   
     
-    
+   
     ingredientsInput.innerHTML="";
     let tablo  = [];
     let filteredIngredient= data.filter(recipe => { recipe.ingredients.filter(ingredients => {
@@ -154,14 +153,85 @@ function filterIngredientsTag(data){
         li.classList.add('float')
         li.innerHTML = ingredient
         li.addEventListener('click',createIngredientTag)
-        li.addEventListener('click',close)
+        li.addEventListener('click',function close(){
+            const closeIcon =  document.getElementsByClassName('clse');
+            for (var i = 0; i < closeIcon.length; i++) {
+                    closeIcon[i].addEventListener('click', function(){
+                        this.parentNode.remove();
+                        
+                        displaySearchedRecipes(data)
+                        
+                    });}}
+        )
+        li.addEventListener('click', function displayfromTags(){
+            const tagged = li.innerText;
+            let arrayIngredientsTag = [];
+            recipes.map(recipe => {
+        
+        recipe.ingredients.map(ingredient => {
+        const ingredientObject = {ingredient};
+        
+        if(ingredientObject.ingredient.ingredient.includes(tagged)) {
+            
+            arrayIngredientsTag.push(recipe)
+            return arrayIngredientsTag
+        } 
+        recipesField.innerHTML = "";
+        displaySearchedRecipes(arrayIngredientsTag);
+        
+        })})});
+        ingredientsFilter.addEventListener('keyup',function(e){
+            let inputValue = e.target.value;
+            ingredientsInput.innerHTML = "";
+            let filteredIngredientsTag = displayIngredients.filter(ingredients => ingredients.toLowerCase().includes(e.target.value))
+            console.log(filteredIngredientsTag)
+            filteredIngredientsTag.slice(-30).forEach(ingredient => {
+                const li = document.createElement('li');
+        ingredientsInput.appendChild(li)
+        li.classList.add('float')
+        li.innerHTML = ingredient
+        li.addEventListener('click',createIngredientTag)
+        li.addEventListener('click',function close(){
+            const closeIcon =  document.getElementsByClassName('clse');
+            for (var i = 0; i < closeIcon.length; i++) {
+                    closeIcon[i].addEventListener('click', function(){
+                        this.parentNode.remove();
+                        
+                        displaySearchedRecipes(data)
+                        
+                    });}}
+        )
+        li.addEventListener('click', function displayfromTags(){
+            const tagged = li.innerText;
+            let arrayIngredientsTag = [];
+            recipes.map(recipe => {
+        
+        recipe.ingredients.map(ingredient => {
+        const ingredientObject = {ingredient};
+        
+        if(ingredientObject.ingredient.ingredient.includes(tagged)) {
+            
+            arrayIngredientsTag.push(recipe)
+            return arrayIngredientsTag
+        } 
+        recipesField.innerHTML = "";
+        displaySearchedRecipes(arrayIngredientsTag);
+        
+        })})});
+            })
+        })
+        
+        
+
     })
+    return false;
+    
     
 }
 
 
 function filterAppareilTag(data){
-   
+    
     appareilsInput.innerHTML = "";
     let array = [];
     let filteredAppareils = data.filter(recipe => {
@@ -170,6 +240,7 @@ function filterAppareilTag(data){
     let noDouble = array.filter(function(ele , pos){
         return array.indexOf(ele) == pos;
 })
+    
     let displayAppareil = noDouble.filter(appareil => appareil.toLowerCase());
     displayAppareil.forEach(appareil => {
         const li = document.createElement('li');
@@ -177,47 +248,143 @@ function filterAppareilTag(data){
         li.classList.add('float')
         li.innerHTML = appareil
         li.addEventListener('click',createAppareilTag)
-        li.addEventListener('click',close)
-        li.addEventListener('click',function createFromTag(){  
+        li.addEventListener('click',function close(){
+            const closeIcon =  document.getElementsByClassName('clse');
+            for (var i = 0; i < closeIcon.length; i++) {
+                    closeIcon[i].addEventListener('click', function(){
+                        this.parentNode.remove();
+                        
+                        displaySearchedRecipes(data)
+                        
+                    });}}
+        )
+        li.addEventListener('click',function display(){
             
-            
-            
-           data.forEach(recipe => { recipe.appliance;
-            if(tagField.innerText == recipe.appliance) {
-               globalRecipes.push(recipe)
-                }
-           
+            const textTag = li.innerText;
+            const tagged = data.filter(recipe => recipe.appliance.includes(textTag));
+            recipesField.innerHTML = "";
+            displaySearchedRecipes(tagged)
         })
-        let noDoubleAppliance = globalRecipes.filter(function(ele , pos){
-            return globalRecipes.indexOf(ele) == pos;
     })
-        console.log(noDoubleAppliance)
-        recipesField.innerHTML = "";
+
+    appareilFilter.addEventListener('keyup',function(e){
+        appareilsInput.innerHTML = "";
+        console.log(e.target.value)
+        let inputValue = e.target.value;
+        let filteredInput = displayAppareil.filter(appareil => appareil.toLowerCase().includes(inputValue))
+        console.log(filteredInput)
         
-        })
-    })
+        filteredInput.forEach(appareil => {
+            const li = document.createElement('li');
+            appareilsInput.appendChild(li)
+            li.classList.add('float')
+            li.innerHTML = appareil;
+            li.addEventListener('click',createAppareilTag)
+            li.addEventListener('click',function close(){
+                const closeIcon =  document.getElementsByClassName('clse');
+                for (var i = 0; i < closeIcon.length; i++) {
+                        closeIcon[i].addEventListener('click', function(data){
+                            this.parentNode.remove();
+                           displaySearchedRecipes(data)
+                        });}}
+            )
+            li.addEventListener('click',function display(){
+                
+                const textTag = li.innerText;
+                const tagged = data.filter(recipe => recipe.appliance.includes(textTag));
+                recipesField.innerHTML = "";
+                displaySearchedRecipes(tagged)
+            })
+        })})
+
 }
 
 
    
 function filterUstensilesTag(data){
+    
     ustensilInput.innerHTML = "";
     let array = [];
     let filteredUstensils = data.filter(recipe => {
-        array.push(recipe.appliance)
+        recipe.ustensils.filter(ustensil => {
+            array.push(ustensil)
+        })
     });
     let noDouble = array.filter(function(ele , pos){
         return array.indexOf(ele) == pos;
 })
-let displayUstensils = noDouble.filter(appareil => appareil.toLowerCase());
+let displayUstensils = noDouble.filter(ustensil => ustensil.toLowerCase());
 displayUstensils.forEach(ustensil => {
     const li = document.createElement('li');
     ustensilInput.appendChild(li)
     li.classList.add('float')
     li.innerHTML = ustensil
     li.addEventListener('click',createUstensilTag)
-    li.addEventListener('click',close)
+    li.addEventListener('click',function close(){
+        const closeIcon =  document.getElementsByClassName('clse');
+        for (var i = 0; i < closeIcon.length; i++) {
+                closeIcon[i].addEventListener('click', function(){
+                    this.parentNode.remove();
+                    displaySearchedRecipes(data)
+                    
+                });}}
+    )
+    li.addEventListener('click',  function displayfromTags(){
+            
+        const textTag = li.innerText;
+        let arrayTagUstensil = [];
+        data.map(recipe => 
+            {
+            recipe.ustensils.map(ustensil => {
+            const ustensilObject = {ustensil};
+                
+                if(ustensilObject.ustensil.includes(textTag)) {
+                    
+                    arrayTagUstensil.push(recipe);
+                } })});
+                recipesField.innerHTML = "";
+                displaySearchedRecipes(arrayTagUstensil)
+})})
+ustensilFilter.addEventListener('keyup',function(e){
+    let inputValue = e.target.value;
+    
+   let filteredInput = displayUstensils.filter(ustensil => ustensil.toLowerCase().includes(inputValue));
+    ustensilInput.innerHTML = "";
+    filteredInput.forEach(ustensil => {
+    const li = document.createElement('li');
+    ustensilInput.appendChild(li)
+    li.classList.add('float')
+    li.innerHTML = ustensil
+    li.addEventListener('click',createUstensilTag)
+    li.addEventListener('click',function close(){
+        const closeIcon =  document.getElementsByClassName('clse');
+        for (var i = 0; i < closeIcon.length; i++) {
+                closeIcon[i].addEventListener('click', function(){
+                    this.parentNode.remove();
+                    
+                    displaySearchedRecipes(data)
+                    
+                });}}
+    )
+    li.addEventListener('click',  function displayfromTags(){
+            
+        const textTag = li.innerText;
+        let arrayTagUstensil = [];
+        data.map(recipe => 
+            {
+            recipe.ustensils.map(ustensil => {
+            const ustensilObject = {ustensil};
+                
+                if(ustensilObject.ustensil.includes(textTag)) {
+                    
+                    arrayTagUstensil.push(recipe);
+                } })});
+                recipesField.innerHTML = "";
+                displaySearchedRecipes(arrayTagUstensil)
+})})
+
 })
+
 }
 
    
@@ -228,17 +395,22 @@ function displaySearchedRecipes(data){
     const filteredArray = data.filter(function(ele , pos){
         return data.indexOf(ele) == pos;
     }) 
+    recipesField.innerHTML = "";
     filteredArray.forEach(recipe => createCard(recipe))
     filterIngredientsTag(filteredArray)
-    filterIngredientsTag(filteredArray)
+    filterUstensilesTag(filteredArray)
     filterAppareilTag(filteredArray)
     
+    console.log(filteredArray)
     
+    if(recipesField.firstChild){
+    
+    }else {
+    recipesField.innerHTML =`Aucune recette ne correspond à votre critère... vous pouvez chercher "tarte aux pommes"; "poisson", etc.`
+    }
 
 }
 
-
-//Créer une fonction qui releve les cards du DOM / => ensuite avec celle ci, on trie dans les cartes les éléments incluants les éléments.
 
     
     
