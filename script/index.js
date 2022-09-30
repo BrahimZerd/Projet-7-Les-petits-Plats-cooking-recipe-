@@ -121,8 +121,6 @@ function filterbyIngredients(e){
     for(let ingredient of recipe.ingredients){
         console.log(ingredient.ingredient)
             
-            
-            
         }
    }
     
