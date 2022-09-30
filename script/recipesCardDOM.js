@@ -68,19 +68,6 @@ function createCard(data) {
                 const {ingredient,quantity,unit,ustensils} = dosage
               
                 const recipesField = document.getElementById('recipes-field');
-                
-                
-                    
-                
-                
-            
-
-                
-                
-                
-    
-
-                
                 const howToDo = document.createElement('div');
                 const quantitySpan= document.createElement('div')
                 quantitySpan.classList.add('item-quantity')

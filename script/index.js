@@ -33,7 +33,9 @@ SearchInput.addEventListener('input',filterMainSearch);
 
 
 //création des éléments du DOM carte par carte 
-recipes.forEach(recipe => {createCard(recipe)})
+for(let i = 0; i < recipes.length; i++){
+    createCard(recipes[i])
+}
 
 //fonction pour ouvrir les parties filtres
 function openIngredientFilter() {
@@ -76,11 +78,12 @@ function openUstensilFilter() {
 let globalRecipes = [];
 function filterByName(e) {
     const searchedString = e.target.value;
-    const filterName = recipes.filter(element => element.name.toLowerCase().includes(searchedString));
+    for(let i = 0; i < recipes.length; i++){
+        if(recipes[i].name.toLowerCase().includes(searchedString)){
+            globalRecipes.push(recipes[i])
+        }
+    }
     
-    console.log('name')
-    globalRecipes = [];
-    filterName.forEach(recipe => globalRecipes.push(recipe));
     filterByDescription(e)
     
 }
@@ -100,8 +103,12 @@ function filterMainSearch(e){
 
 function filterByDescription(e){
     const searchedString = e.target.value;
-    const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchedString));
-    filteredDescription.forEach(recipe => globalRecipes.push(recipe));
+    for(i = 0; i < recipes.length; i++){
+        if(recipes[i].description.toLowerCase().includes(searchedString)){
+            globalRecipes.push(recipes[i])
+        }
+    }
+   
     filterbyIngredients(e)
     
 }
@@ -110,6 +117,15 @@ function filterByDescription(e){
 function filterbyIngredients(e){
     let searchedString = e.target.value;
     let newArrayForIngredients = [];
+   for(let recipe of recipes){
+    for(let ingredient of recipe.ingredients){
+        console.log(ingredient.ingredient)
+            
+            
+            
+        }
+   }
+    
     recipes.map(recipe => {
         
         recipe.ingredients.map(ingredient => {
