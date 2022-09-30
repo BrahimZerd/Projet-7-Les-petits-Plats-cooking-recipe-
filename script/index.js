@@ -135,7 +135,7 @@ function filterbyIngredients(e){
 
 //fonction pour filtrer les ingrédients dans la barre de recherche "Ingredients"
 function filterIngredientsTag(data){
-   
+    let arrayIngredientsTag = [];
     
    
     ingredientsInput.innerHTML="";
@@ -158,33 +158,35 @@ function filterIngredientsTag(data){
             for (var i = 0; i < closeIcon.length; i++) {
                     closeIcon[i].addEventListener('click', function(){
                         this.parentNode.remove();
-                        
                         displaySearchedRecipes(data)
-                        
+                        console.log(closeIcon.length)
+                        if(closeIcon.length == 0){
+                            displaySearchedRecipes(recipes)
+                        }
                     });}}
         )
         li.addEventListener('click', function displayfromTags(){
             const tagged = li.innerText;
-            let arrayIngredientsTag = [];
-            recipes.map(recipe => {
+            
+            data.map(recipe => {
         
         recipe.ingredients.map(ingredient => {
         const ingredientObject = {ingredient};
         
-        if(ingredientObject.ingredient.ingredient.includes(tagged)) {
-            
-            arrayIngredientsTag.push(recipe)
-            return arrayIngredientsTag
-        } 
-        recipesField.innerHTML = "";
-        displaySearchedRecipes(arrayIngredientsTag);
+             if(ingredientObject.ingredient.ingredient.includes(tagged)){
+                arrayIngredientsTag.push(recipe)
+             };
+              /// a voir avec Gaetan
+            displaySearchedRecipes(arrayIngredientsTag);
         
-        })})});
+        })})
+        console.log(arrayIngredientsTag)
+    });
         ingredientsFilter.addEventListener('keyup',function(e){
             let inputValue = e.target.value;
             ingredientsInput.innerHTML = "";
-            let filteredIngredientsTag = displayIngredients.filter(ingredients => ingredients.toLowerCase().includes(e.target.value))
-            console.log(filteredIngredientsTag)
+            let filteredIngredientsTag = displayIngredients.filter(ingredients => ingredients.toLowerCase().includes(inputValue))
+            
             filteredIngredientsTag.slice(-30).forEach(ingredient => {
                 const li = document.createElement('li');
         ingredientsInput.appendChild(li)
@@ -192,19 +194,24 @@ function filterIngredientsTag(data){
         li.innerHTML = ingredient
         li.addEventListener('click',createIngredientTag)
         li.addEventListener('click',function close(){
+            
             const closeIcon =  document.getElementsByClassName('clse');
             for (var i = 0; i < closeIcon.length; i++) {
                     closeIcon[i].addEventListener('click', function(){
                         this.parentNode.remove();
-                        
                         displaySearchedRecipes(data)
-                        
-                    });}}
+                        console.log(closeIcon.length)
+                        if(closeIcon.length == 0){
+                            displaySearchedRecipes(recipes)
+                        }
+                    });}
+                    
+                }
         )
         li.addEventListener('click', function displayfromTags(){
             const tagged = li.innerText;
             let arrayIngredientsTag = [];
-            recipes.map(recipe => {
+            data.filter(recipe => {
         
         recipe.ingredients.map(ingredient => {
         const ingredientObject = {ingredient};
@@ -212,24 +219,21 @@ function filterIngredientsTag(data){
         if(ingredientObject.ingredient.ingredient.includes(tagged)) {
             
             arrayIngredientsTag.push(recipe)
-            return arrayIngredientsTag
+            
         } 
-        recipesField.innerHTML = "";
+       
         displaySearchedRecipes(arrayIngredientsTag);
         
         })})});
             })
         })
-        
-        
-
-    })
-    return false;
+})
+   
     
     
 }
 
-
+//fonction pour filtrer les ingrédients dans la barre de recherche "Appareil"
 function filterAppareilTag(data){
     
     appareilsInput.innerHTML = "";
@@ -253,8 +257,10 @@ function filterAppareilTag(data){
             for (var i = 0; i < closeIcon.length; i++) {
                     closeIcon[i].addEventListener('click', function(){
                         this.parentNode.remove();
-                        
                         displaySearchedRecipes(data)
+                        if(closeIcon.length == 0){
+                            displaySearchedRecipes(recipes)
+                        }
                         
                     });}}
         )
@@ -285,7 +291,10 @@ function filterAppareilTag(data){
                 for (var i = 0; i < closeIcon.length; i++) {
                         closeIcon[i].addEventListener('click', function(data){
                             this.parentNode.remove();
-                           displaySearchedRecipes(data)
+                            displaySearchedRecipes(data)
+                            if(closeIcon.length == 0){
+                                displaySearchedRecipes(recipes)
+                            }
                         });}}
             )
             li.addEventListener('click',function display(){
@@ -300,7 +309,7 @@ function filterAppareilTag(data){
 }
 
 
-   
+ //fonction pour filtrer les ingrédients dans la barre de recherche "Ustensiles"  
 function filterUstensilesTag(data){
     
     ustensilInput.innerHTML = "";
@@ -326,6 +335,9 @@ displayUstensils.forEach(ustensil => {
                 closeIcon[i].addEventListener('click', function(){
                     this.parentNode.remove();
                     displaySearchedRecipes(data)
+                        if(closeIcon.length == 0){
+                            displaySearchedRecipes(recipes)
+                        }
                     
                 });}}
     )
@@ -361,8 +373,10 @@ ustensilFilter.addEventListener('keyup',function(e){
         for (var i = 0; i < closeIcon.length; i++) {
                 closeIcon[i].addEventListener('click', function(){
                     this.parentNode.remove();
-                    
                     displaySearchedRecipes(data)
+                        if(closeIcon.length == 0){
+                            displaySearchedRecipes(recipes)
+                        }
                     
                 });}}
     )
@@ -401,7 +415,7 @@ function displaySearchedRecipes(data){
     filterUstensilesTag(filteredArray)
     filterAppareilTag(filteredArray)
     
-    console.log(filteredArray)
+    
     
     if(recipesField.firstChild){
     
@@ -410,7 +424,6 @@ function displaySearchedRecipes(data){
     }
 
 }
-
 
     
     
