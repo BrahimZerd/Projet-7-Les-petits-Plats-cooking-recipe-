@@ -74,8 +74,7 @@ function createUstensilTag(e){
 //fonction de fermeture des tags
     
     
-
-
+//mettre les tags par défaut dans la liste des filtres
 filterIngredientsTag(recipes);
 filterUstensilesTag(recipes);
 filterAppareilTag(recipes);

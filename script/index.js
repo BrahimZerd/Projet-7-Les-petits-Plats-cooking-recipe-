@@ -321,7 +321,7 @@ function filterAppareilTag(data){
 }
 
 function displayTagWithoutSearch(data){
-    tagField.children.forEach(child => console.log(child))
+    
     for(i = 0; i < tagField.children.length;i++){
         console.log(tagField.children[i].innerText)
         console.log(data)
@@ -330,23 +330,23 @@ function displayTagWithoutSearch(data){
             //if (taggedAppliance.length > 0)
             displaySearchedRecipes(taggedAppliance)
              let ArrayPushedRecipes = [];
-            const taggedustensil = data.filter(recipe => {
+        const taggedustensil = data.filter(recipe => {
                 if(recipe.ustensils.includes(tagField.children[i].innerText)){
                     ArrayPushedRecipes.push(recipe)
-                }})
+        }})
                 
-            const taggedIngredients = data.filter( recipe => {
+        const taggedIngredients = data.filter( recipe => {
                 recipe.ingredients.filter( ingredient => {
                     if(ingredient.ingredient.includes(tagField.children[i].innerText)){
                         ArrayPushedRecipes.push(recipe)
                     }
                 })
-            }
+        }
             
             )
             displaySearchedRecipes(ArrayPushedRecipes)
             console.log(ArrayPushedRecipes)   
-        }
+    }
     
         
 }
