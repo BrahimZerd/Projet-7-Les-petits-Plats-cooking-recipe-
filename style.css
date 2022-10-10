@@ -7,6 +7,38 @@
         width: 1270px;
     }
 }
+
+@media(max-width:768px){
+  .fa-solid{
+    
+    left: 280% !important;
+  }
+  #ingredients-dropdown{
+    border-radius: 5px;
+    top : 355% !important;
+    width: auto !important;
+  }
+  #appareils-dropdown{
+    border-radius: 5px;
+    top: 355% !important;
+    width: auto !important;
+  }
+  #ustensiles-dropdown{
+    border-radius: 5px;
+    top: 355% !important;
+    width: auto !important;
+  }
+  .toggle-input{
+    width: 221.5px !important;
+  }
+  .row{
+    flex-direction: column;
+  }
+  .form-control-feedback{
+    right: 7% !important;
+  }
+
+}
 body, html{
     margin:0;
     font-family:'Roboto', 'sans-serif';
@@ -248,7 +280,7 @@ datalist {
     width: 667px;
     margin-top: 75.5%;
     
-    height: 367px;
+    height: auto;
     border: none;
     border-radius: 0px 0px 5px 5px;
     transform: translate3d(0px, -301px, 0px) !important;
@@ -342,11 +374,11 @@ datalist {
     position: relative;
     width: fit-content;
   }
-
+  @media(min-width: 900px){
   .toggle-input {
-    width: 667px !important;
     
-  }
+    width: 667px !important;
+  }}
 
   .col-5{
     margin-right: 15%;
@@ -384,7 +416,7 @@ datalist {
 #appareils-dropdown {
   background-color: #68D9A4;
   width: 667px;
-  height: 180px;
+  height: auto;
   border: none;
   border-radius: 0px 0px 5px 5px;
   flex-direction: column;
@@ -392,7 +424,7 @@ datalist {
 #ustensiles-dropdown {
   background-color: #ED6454;
   width: 667px;
-  height: 367px;
+  height: auto;
   border: none;
   border-radius: 0px 0px 5px 5px;
   flex-direction: column;
